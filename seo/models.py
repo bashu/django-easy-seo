@@ -5,11 +5,10 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 
-class Seo(models.Model):
-    class Meta:
-        verbose_name = _('SEO fields')
-        verbose_name_plural = _('SEO fields')
-        unique_together = (("content_type", "object_id"),)
+from caching.base import CachingMixin, CachingManager
+
+
+class Seo(CachingMixin, models.Model):
 
     title = models.CharField(verbose_name=_('Title'),
         max_length=200, default='', blank=True)
@@ -22,17 +21,28 @@ class Seo(models.Model):
     object_id = models.PositiveIntegerField()
     content_object = generic.GenericForeignKey('content_type', 'object_id')
 
+    objects = CachingManager()
+
+    class Meta:
+        verbose_name = _('SEO fields')
+        verbose_name_plural = _('SEO fields')
+        unique_together = (("content_type", "object_id"),)
+
     def __unicode__(self):
         return self.title
 
-class Url(models.Model):
-    class Meta:
-        verbose_name = _('URL')
-        verbose_name_plural = _('URLs')
+
+class Url(CachingMixin, models.Model):
 
     url = models.CharField(verbose_name=_('URL'),
         max_length=200, default='/', unique=True,
         help_text=_("This should be an absolute path, excluding the domain name. Example: '/events/search/'."))
+
+    objects = CachingManager()
+
+    class Meta:
+        verbose_name = _('URL')
+        verbose_name_plural = _('URLs')
 
     def get_absolute_url(self):
         return self.url
