@@ -36,8 +36,7 @@ class Url(CachingMixin, models.Model):
 
     url = models.CharField(verbose_name=_('URL'),
         max_length=200, default='/', unique=True,
-        help_text=_("This should be an absolute path, excluding"
-                    " the domain name. Example: '/about/'"))
+        help_text=_("This should be an absolute path, excluding the domain name. Example: '/about/'"))
 
     objects = CachingManager()
 
