@@ -1,14 +1,18 @@
 # -*- coding: utf-8 -*-
-from django import template
-from django.contrib.contenttypes.models import ContentType
-from django.db.models import Model
-from django.utils.html import escape
-from seo.models import Seo, Url
+
 import warnings
 
-INTENTS = ['title', 'keywords', 'description', ]
+from django import template
+from django.db.models import Model
+from django.utils.html import escape
+from django.contrib.contenttypes.models import ContentType
+
+from ..models import Seo, Url
+
+INTENTS = ['title', 'keywords', 'description']
 
 register = template.Library()
+
 
 class SeoNode(template.Node):
     def __init__(self, intent, object, variable):
@@ -27,7 +31,7 @@ class SeoNode(template.Node):
         try:
             request = context['request']
         except KeyError:
-            warnings.warn('`request` was not found in context. Add "django.core.context_processors.request" to `TEMPLATE_CONTEXT_PROCESSORS` in your settings.py.')
+            warnings.warn("""`request` was not found in context. Add "django.core.context_processors.request" to `TEMPLATE_CONTEXT_PROCESSORS` in your settings.py.""")
             return self._process_var_argument(context, None)
         else:
             try:
@@ -36,10 +40,8 @@ class SeoNode(template.Node):
                 return self._process_var_argument(context, None)
             else:
                 try:
-                    seo = Seo.objects.get(
-                        content_type=ContentType.objects.get_for_model(
-                                object.__class__),
-                        object_id=object.id)
+                    ctype = ContentType.objects.get_for_model(object.__class__)
+                    seo = Seo.objects.get(content_type=ctype, object_id=object.id)
                 except Seo.DoesNotExist:
                     return self._process_var_argument(context, None)
                 else:
@@ -51,10 +53,8 @@ class SeoNode(template.Node):
             return self._process_var_argument(context, None)
 
         try:
-            seo = Seo.objects.get(
-                content_type=ContentType.objects.get_for_model(
-                        object.__class__),
-                object_id=object.id)
+            ctype = ContentType.objects.get_for_model(object.__class__)
+            seo = Seo.objects.get(content_type=ctype, object_id=object.id)
         except Seo.DoesNotExist:
             return self._seo_by_url(context)
         else:
@@ -83,5 +83,7 @@ def seo_tag(parser, token):
                 return SeoNode(splited[1], None, None)
             elif splited[2] == 'as':
                 return SeoNode(splited[1], None, splited[3])
-    raise template.TemplateSyntaxError, "Invalid syntax. Use ``{% seo <title|keywords|description> [for <object>] [as <variable>] %}``"
+    raise template.TemplateSyntaxError(
+        """Invalid syntax. Use ``{% seo <title|keywords|description> [for <object>] [as <variable>] %}``""")
+
 register.tag('seo', seo_tag)
