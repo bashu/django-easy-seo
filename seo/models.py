@@ -26,7 +26,7 @@ class Seo(CachingMixin, models.Model):
     class Meta:
         verbose_name = _('SEO fields')
         verbose_name_plural = _('SEO fields')
-        unique_together = (("content_type", "object_id"),)
+        unique_together = ("content_type", "object_id")
 
     def __unicode__(self):
         return self.title
@@ -36,7 +36,8 @@ class Url(CachingMixin, models.Model):
 
     url = models.CharField(verbose_name=_('URL'),
         max_length=200, default='/', unique=True,
-        help_text=_("This should be an absolute path, excluding the domain name. Example: '/events/search/'."))
+        help_text=_("This should be an absolute path, excluding"
+                    " the domain name. Example: '/about/'"))
 
     objects = CachingManager()
 
@@ -44,8 +45,8 @@ class Url(CachingMixin, models.Model):
         verbose_name = _('URL')
         verbose_name_plural = _('URLs')
 
-    def get_absolute_url(self):
+    def __unicode__(self):
         return self.url
 
-    def __unicode__(self):
+    def get_absolute_url(self):
         return self.url

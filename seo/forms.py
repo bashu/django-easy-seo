@@ -1,9 +1,11 @@
+# -*- coding: utf-8 -*-
+
 from django import forms
-from seo.models import Seo
+
+from .models import Seo
+
 
 class SeoForm(forms.ModelForm):
-    class Meta:
-        model = Seo
 
     title = forms.CharField(
         required=not Seo._meta.get_field('title').blank,
@@ -29,3 +31,6 @@ class SeoForm(forms.ModelForm):
         help_text=Seo._meta.get_field('keywords').help_text,
         max_length=Seo._meta.get_field('keywords').max_length,
     )
+
+    class Meta:
+        model = Seo

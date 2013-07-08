@@ -1,31 +1,23 @@
-# -*- coding: utf-8 -*-
 import os
-from setuptools import setup, find_packages
+from setuptools import setup
 
-# Utility function to read the README file.  
-# Used for the long_description.  It's nice, because now 1) we have a top level
-# README file and 2) it's easier to type in the README file than to put a raw
-# string in below ...
-def read(fname):
-    try:
-        return open(os.path.join(os.path.dirname(__file__), fname)).read()
-    except IOError:
-        return ''
+README = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
+
+# allow setup.py to be run from any path
+os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
-    name="redsolutioncms.django-seo",
-    version=__import__('seo').__version__,
-    description=read('DESCRIPTION'),
+    name="django-seo-lite",
+    version='0.3.6',
+    packages=['seo'],
+    include_package_data=True,
     license="GPLv3",
-    keywords="django seo",
-
+    description = "Adds generic SEO fields for objects in your site or specific urls",
+    long_description=README,
     author="Alexander Ivanov",
     author_email="alexander.ivanov@redsolution.ru",
-
-    maintainer='Alexander Ivanov',
-    maintainer_email='alexander.ivanov@redsolution.ru',
-
-#    url="http://packages.python.org/django-seo",
+    maintainer='Basil Shubin',
+    maintainer_email='basil.shubin@gmail.com',
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
@@ -38,12 +30,5 @@ setup(
         'Programming Language :: Python',
         'Topic :: Internet :: WWW/HTTP :: Indexing/Search',
     ],
-    packages=find_packages(),
-    install_requires=[],
-    include_package_data=True,
     zip_safe=False,
-    long_description=read('README'),
-    entry_points={
-        'redsolutioncms': ['seo = seo.redsolution_setup', ],
-    }
 )

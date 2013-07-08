@@ -1,2 +1,1 @@
-recursive-include seo *
-exclude *.orig *.pyc
+include README.rst

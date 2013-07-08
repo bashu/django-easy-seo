@@ -1,11 +1,15 @@
+# -*- coding: utf-8 -*-
+
 from django.core.exceptions import ImproperlyConfigured
 
+
 def importpath(path, error_text=None):
-    """                                                                                               
-    Import value by specified ``path``.                                                               
-    Value can represent module, class, object, attribute or method.                                              
+    """
+    Import value by specified ``path``.
+    Value can represent module, class, object, attribute or method.
     If ``error_text`` is not None and import will
-    raise ImproperlyConfigured with user friendly text.                                     
+    raise ImproperlyConfigured with user friendly text.
+
     """
     result = None
     attrs = []
