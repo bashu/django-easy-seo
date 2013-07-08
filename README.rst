@@ -20,7 +20,7 @@ In settings.py:
 ---------------
 
 Add names of ModelAdmins to be override::
- 
+
     SEO_FOR_MODELS = [
         '<app>.models.<Model>',
     ]
@@ -31,10 +31,10 @@ In template:
 First of all, load the seo_tags in every template you want to use it::
 
     {% load seo_tags %}
-    
+
 Use::
     {% seo <title|keywords|description> [for <object>] %}
-    
+
 Or::
     {% seo <title|keywords|description> [for <object>] as <variable> %}
     {{ <variable> }}
@@ -50,7 +50,7 @@ Example:
         ...
         'seo',
     )
-    
+
     SEO_FOR_MODELS = [
         'app.models.Object',
         'app.models.Another',
@@ -109,11 +109,3 @@ If you are using extend
     {% block content %}
         {{ another.content }}
     {% endblock %}
-
-Redsolution CMS classifiers:
-----------------------------
-
-`Content plugins`_
-
-.. _`Content plugins`: http://www.redsolutioncms.org/classifiers/content
-    
