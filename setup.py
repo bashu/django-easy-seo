@@ -8,7 +8,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name="django-seo-lite",
-    version='0.3.6',
+    version='0.3.7',
     packages=['seo'],
     include_package_data=True,
     license="GPLv3",
@@ -18,6 +18,9 @@ setup(
     author_email="alexander.ivanov@redsolution.ru",
     maintainer='Basil Shubin',
     maintainer_email='basil.shubin@gmail.com',
+    install_requires=[
+        'django-cache-machine',
+    ],
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
