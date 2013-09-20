@@ -7,7 +7,7 @@ README = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
-    name="django-seo-lite",
+    name="django-seo",
     version='0.3.7',
     packages=['seo'],
     include_package_data=True,
