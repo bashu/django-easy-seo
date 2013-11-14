@@ -15,6 +15,7 @@ register = template.Library()
 
 
 class SeoNode(template.Node):
+
     def __init__(self, intent, object, variable):
         self.intent = intent
         self.object = object
@@ -40,8 +41,8 @@ class SeoNode(template.Node):
                 return self._process_var_argument(context, None)
             else:
                 try:
-                    ctype = ContentType.objects.get_for_model(object.__class__)
-                    seo = Seo.objects.get(content_type=ctype, object_id=object.id)
+                    ct = ContentType.objects.get_for_model(object.__class__)
+                    seo = Seo.objects.get(content_type=ct, object_id=object.id)
                 except Seo.DoesNotExist:
                     return self._process_var_argument(context, None)
                 else:

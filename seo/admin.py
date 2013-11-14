@@ -25,6 +25,7 @@ class SeoInlines(generic.GenericStackedInline):
     extra = 1
     max_num = 1
 
+
 class UrlAdmin(admin.ModelAdmin):
     model = Url
     inlines = [SeoInlines]
@@ -46,7 +47,7 @@ for model_name in settings.SEO_FOR_MODELS:
         model_admin = admin.site._registry[model].__class__
     except KeyError:
         raise ImproperlyConfigured(
-            """Please set ``seo`` in your settings.py only as last INSTALLED_APPS""")
+            "Please put ``seo`` in your settings.py only as last INSTALLED_APPS")
     admin.site.unregister(model)
 
     setattr(model_admin, 'inlines', getattr(model_admin, 'inlines', []))

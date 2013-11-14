@@ -10,12 +10,12 @@ from caching.base import CachingMixin, CachingManager
 
 class Seo(CachingMixin, models.Model):
 
-    title = models.CharField(verbose_name=_('Title'),
-        max_length=200, default='', blank=True)
-    description = models.CharField(verbose_name=_('Description'),
-        max_length=200, default='', blank=True)
-    keywords = models.CharField(verbose_name=_('Keywords'),
-        max_length=1000, default='', blank=True)
+    title = models.CharField(
+        verbose_name=_('title'), max_length=200, default='', blank=True)
+    description = models.CharField(
+        verbose_name=_('description'), max_length=200, default='', blank=True)
+    keywords = models.CharField(
+        verbose_name=_('keywords'), max_length=1000, default='', blank=True)
 
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
@@ -34,9 +34,10 @@ class Seo(CachingMixin, models.Model):
 
 class Url(CachingMixin, models.Model):
 
-    url = models.CharField(verbose_name=_('URL'),
-        max_length=200, default='/', unique=True,
-        help_text=_("This should be an absolute path, excluding the domain name. Example: '/about/'"))
+    url = models.CharField(
+        verbose_name=_('URL'), max_length=200, default='/', unique=True,
+        help_text=_("This should be an absolute path, excluding the domain name. Example: '/about/'"),
+    )
 
     objects = CachingManager()
 

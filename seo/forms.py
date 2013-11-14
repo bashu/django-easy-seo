@@ -34,3 +34,4 @@ class SeoForm(forms.ModelForm):
 
     class Meta:
         model = Seo
+        fields = ['title', 'description', 'keywords']

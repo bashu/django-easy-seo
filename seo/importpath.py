@@ -28,9 +28,10 @@ def importpath(path, error_text=None):
     for attr in attrs:
         try:
             result = getattr(result, attr)
-        except (AttributeError, ValueError), error:
+        except (AttributeError, ValueError), e:
             if error_text is not None:
-                raise ImproperlyConfigured('Error: %s can import "%s"' % (error_text, path))
+                raise ImproperlyConfigured('Error: %s can import "%s"' % (
+                    error_text, path))
             else:
                 raise exception
     return result
