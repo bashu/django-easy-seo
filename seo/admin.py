@@ -28,6 +28,8 @@ class SeoInlines(generic.GenericStackedInline):
 
 class UrlAdmin(admin.ModelAdmin):
     model = Url
+    list_display = ('url', 'site')
+    search_fields = ('url', 'site')
     inlines = [SeoInlines]
 
 try:
