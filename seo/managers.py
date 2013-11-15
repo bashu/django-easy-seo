@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from django.db.models import Model
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.contenttypes.models import ContentType
 
@@ -25,11 +24,6 @@ class UrlManager(CachingManager):
 
 class SeoManager(CachingManager):
 
-    def get_or_create_for(self, instance, site=None):
-        ct = ContentType.objects.get_for_model(instance.__class__)
-        return self.get_or_create(
-            content_type=ct, object_id=instance.id, site=site)
-
     def for_model(self, instance, site=None):
         ct = ContentType.objects.get_for_model(instance.__class__)
         try:
@@ -41,6 +35,4 @@ class SeoManager(CachingManager):
                 return None
 
     def get_seo_object(self, instance, site=None):
-        if not isinstance(instance, Model):
-            return None
         return self.for_model(instance, site)
