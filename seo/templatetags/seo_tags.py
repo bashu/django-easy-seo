@@ -38,23 +38,19 @@ class SeoNode(template.Node):
             raise ImproperlyConfigured("""`request` was not found in context. Add "django.core.context_processors.request" to `TEMPLATE_CONTEXT_PROCESSORS` in your settings.py.""")
 
         site = get_current_site(request)
-        if self.target_object is None:
-            cache_key = 'SEO:%s' % make_key('%s.%s:%s' % (
-                request.path_info, site.domain, self.intent))
+        target_object = self.get_target_object(context)
+        if target_object is None:
+            cache_key = 'SEO:%s' % make_key('%s.path%s:%s' % (site.pk, request.path_info, self.intent))
             value = cache.get(cache_key)
             if value is None:
                 seobj = Url.objects.get_seo_object(request.path_info, site)
                 value = getattr(seobj, self.intent, None)
                 cache.set(cache_key, value, CACHE_TIMEOUT)  # store in a cache
         else:
-            target_object = self.get_target_object(context)
-            cache_key = 'SEO:%s' % make_key('%s.%s.%s:%s' % (
-                request.path_info, site.domain, target_object.pk, self.intent))
+            cache_key = 'SEO:%s' % make_key('%s.pk%s:%s' % (site.pk, target_object.pk, self.intent))
             value = cache.get(cache_key)
             if value is None:
                 seobj = Seo.objects.get_seo_object(target_object, site)
-                if seobj is None:  # fallback
-                    seobj = Url.objects.get_seo_object(request.path_info, site)
                 value = getattr(seobj, self.intent, None)
                 cache.set(cache_key, value, CACHE_TIMEOUT)  # store in a cache
 
