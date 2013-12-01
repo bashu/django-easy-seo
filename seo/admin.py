@@ -13,6 +13,9 @@ from .forms import SeoForm
 class SeoAdmin(admin.ModelAdmin):
     model = Seo
 
+    def queryset(self, request):
+        return super(SeoAdmin, self).queryset(request).no_cache()
+
 try:
     admin.site.register(Seo, SeoAdmin)
 except admin.sites.AlreadyRegistered:
@@ -25,6 +28,9 @@ class SeoInlines(generic.GenericStackedInline):
     extra = 1
     max_num = 1
 
+    def queryset(self, request):
+        return super(SeoInlines, self).queryset(request).no_cache()
+
 
 class UrlAdmin(admin.ModelAdmin):
     model = Url
@@ -32,18 +38,16 @@ class UrlAdmin(admin.ModelAdmin):
     search_fields = ('url', 'site')
     inlines = [SeoInlines]
 
+    def queryset(self, request):
+        return super(UrlAdmin, self).queryset(request).no_cache()
+
 try:
     admin.site.register(Url, UrlAdmin)
 except admin.sites.AlreadyRegistered:
     pass
 
 
-if not hasattr(settings, 'SEO_FOR_MODELS'):
-    raise ImproperlyConfigured(
-        """Please add ``SEO_FOR_MODELS = ["<app>.admin.<ModelAdmin>",]`` to your settings.py""")
-
-
-for model_name in settings.SEO_FOR_MODELS:
+for model_name in getattr(settings, 'SEO_FOR_MODELS', []):
     model = importpath(model_name, 'SEO_FOR_MODELS')
     try:
         model_admin = admin.site._registry[model].__class__
