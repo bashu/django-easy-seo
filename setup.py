@@ -19,6 +19,7 @@ setup(
     maintainer='Basil Shubin',
     maintainer_email='basil.shubin@gmail.com',
     install_requires=[
+        'django-classy-tags',
         'django-cache-machine',
     ],
     classifiers=[
