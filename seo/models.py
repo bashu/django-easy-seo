@@ -80,10 +80,10 @@ class Seo(CachingMixin, models.Model):
         super(Seo, self).save(*args, **kwargs)
 
         # Now also invalidate the cache used in the templatetag
-        for site in Site.objects.all():
+        for site_id in Site.objects.values_list('pk', flat=True):
             for intent in INTENTS:
                 cache_key = '%s:%s' % (CACHE_PREFIX, make_key('%s.%s:%s' % (
-                    site.pk, self.object_id, intent)))
+                    site_id, self.object_id, intent)))
                 cache.delete(cache_key)
 
     def delete(self, *args, **kwargs):
@@ -91,10 +91,10 @@ class Seo(CachingMixin, models.Model):
         super(Seo, self).delete(*args, **kwargs)
 
         # Now also invalidate the cache used in the templatetag
-        for site in Site.objects.all():
+        for site_id in Site.objects.values_list('pk', flat=True):
             for intent in INTENTS:
                 cache_key = '%s:%s' % (CACHE_PREFIX, make_key('%s.%s:%s' % (
-                    site.pk, object_id, intent)))
+                    site_id, object_id, intent)))
                 cache.delete(cache_key)
 
 
@@ -119,3 +119,24 @@ class Url(CachingMixin, BaseModel):
 
     def get_absolute_url(self):
         return self.url
+
+    def save(self, *args, **kwargs):
+        super(Url, self).save(*args, **kwargs)
+
+        # Now also invalidate the cache used in the templatetag
+        for site_id in Site.objects.values_list('pk', flat=True):
+            for intent in INTENTS:
+                cache_key = '%s:%s' % (CACHE_PREFIX, make_key('%s.%s:%s' % (
+                    site_id, self.url, intent)))
+                cache.delete(cache_key)
+
+    def delete(self, *args, **kwargs):
+        url = self.url
+        super(Url, self).delete(*args, **kwargs)
+
+        # Now also invalidate the cache used in the templatetag
+        for site_id in Site.objects.values_list('pk', flat=True):
+            for intent in INTENTS:
+                cache_key = '%s:%s' % (CACHE_PREFIX, make_key('%s.%s:%s' % (
+                    site_id, url, intent)))
+                cache.delete(cache_key)
