@@ -11,44 +11,7 @@ from caching.base import CachingMixin
 from caching.invalidation import make_key
 
 from .settings import INTENTS, CACHE_PREFIX
-from .managers import SeoManager, UrlManager
-
-
-class BaseModel(models.Model):
-
-    class Meta:
-        abstract = True
-
-    def clean(self):
-        """
-        Check for instances with null values in unique_together fields.
-
-        """
-        from django.core.exceptions import ValidationError
-
-        super(BaseModel, self).clean()
-
-        for field_tuple in self._meta.unique_together[:]:
-            unique_filter = {}
-            unique_fields = []
-            null_found = False
-            for field_name in field_tuple:
-                field_value = getattr(self, field_name)
-                if getattr(self, field_name) is None:
-                    unique_filter['%s__isnull' % field_name] = True
-                    null_found = True
-                else:
-                    unique_filter['%s' % field_name] = field_value
-                    unique_fields.append(field_name)
-            if null_found:
-                unique_queryset = self.__class__.objects.filter(
-                    **unique_filter)
-                if self.pk:
-                    unique_queryset = unique_queryset.exclude(pk=self.pk)
-                if unique_queryset.exists():
-                    msg = self.unique_error_message(
-                        self.__class__, tuple(unique_fields))
-                    raise ValidationError(msg)
+from .managers import SeoManager
 
 
 class Seo(CachingMixin, models.Model):
@@ -95,48 +58,4 @@ class Seo(CachingMixin, models.Model):
             for intent in INTENTS:
                 cache_key = '%s:%s' % (CACHE_PREFIX, make_key('%s.%s:%s' % (
                     site_id, object_id, intent)))
-                cache.delete(cache_key)
-
-
-class Url(CachingMixin, BaseModel):
-
-    url = models.CharField(
-        verbose_name=_('URL'), max_length=200, default='/',
-        help_text=_("This should be an absolute path, excluding the domain name. Example: '/about/'"),
-    )
-
-    site = models.ForeignKey('sites.Site', blank=True, null=True)
-
-    objects = UrlManager()
-
-    class Meta:
-        verbose_name = _('URL')
-        verbose_name_plural = _('URLs')
-        unique_together = ("url", "site")
-
-    def __unicode__(self):
-        return self.url
-
-    def get_absolute_url(self):
-        return self.url
-
-    def save(self, *args, **kwargs):
-        super(Url, self).save(*args, **kwargs)
-
-        # Now also invalidate the cache used in the templatetag
-        for site_id in Site.objects.values_list('pk', flat=True):
-            for intent in INTENTS:
-                cache_key = '%s:%s' % (CACHE_PREFIX, make_key('%s.%s:%s' % (
-                    site_id, self.url, intent)))
-                cache.delete(cache_key)
-
-    def delete(self, *args, **kwargs):
-        url = self.url
-        super(Url, self).delete(*args, **kwargs)
-
-        # Now also invalidate the cache used in the templatetag
-        for site_id in Site.objects.values_list('pk', flat=True):
-            for intent in INTENTS:
-                cache_key = '%s:%s' % (CACHE_PREFIX, make_key('%s.%s:%s' % (
-                    site_id, url, intent)))
                 cache.delete(cache_key)

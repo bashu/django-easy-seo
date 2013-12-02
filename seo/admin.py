@@ -6,8 +6,8 @@ from django.contrib.contenttypes import generic
 from django.core.exceptions import ImproperlyConfigured
 
 from .importpath import importpath
-from .models import Seo, Url
 from .forms import SeoForm
+from .models import Seo
 
 
 class SeoAdmin(admin.ModelAdmin):
@@ -30,22 +30,6 @@ class SeoInlines(generic.GenericStackedInline):
 
     def queryset(self, request):
         return super(SeoInlines, self).queryset(request).no_cache()
-
-
-class UrlAdmin(admin.ModelAdmin):
-    model = Url
-    list_display = ('url', 'site')
-    search_fields = ('url', 'site')
-    inlines = [SeoInlines]
-
-    def queryset(self, request):
-        return super(UrlAdmin, self).queryset(request).no_cache()
-
-try:
-    admin.site.register(Url, UrlAdmin)
-except admin.sites.AlreadyRegistered:
-    pass
-
 
 for model_name in getattr(settings, 'SEO_FOR_MODELS', []):
     model = importpath(model_name, 'SEO_FOR_MODELS')
