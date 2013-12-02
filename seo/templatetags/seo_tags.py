@@ -34,7 +34,7 @@ class SeoTag(Tag):
         value = cache.get(cache_key)
         if value is None:
             seobj = Seo.objects.get_seo_object(instance, site)
-            value = getattr(seobj, self.intent, None)
+            value = getattr(seobj, intent, None)
             cache.set(cache_key, value, CACHE_TIMEOUT)  # store in a cache
 
         if varname:
