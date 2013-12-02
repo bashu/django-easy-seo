@@ -1,6 +1,6 @@
-==========
-django-seo
-==========
+===============
+django-easy-seo
+===============
 
 SEO fields for objects of any model registered in admin.
 
@@ -33,8 +33,8 @@ First of all, load the seo_tags in every template you want to use it::
     {% load seo_tags %}
 
 Use::
-    {% seo <title|keywords|description> for <object> %}
+    {% seo "<title|keywords|description>" for <object> %}
 
 Or::
-    {% seo <title|keywords|description> for <object> as <variable> %}
+    {% seo "<title|keywords|description>" for <object> as <variable> %}
     {{ <variable> }}
