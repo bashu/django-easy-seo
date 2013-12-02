@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from django import template
-from django.conf import settings
 from django.core.cache import cache
 from django.utils.html import escape
 from django.template import Variable
@@ -11,12 +10,10 @@ from django.contrib.sites.models import get_current_site
 
 from caching.invalidation import make_key
 
+from ..settings import INTENTS, CACHE_PREFIX, CACHE_TIMEOUT
 from ..models import Seo, Url
 
 register = template.Library()
-
-INTENTS = ['title', 'keywords', 'description']
-CACHE_TIMEOUT = getattr(settings, 'SEO_CACHE_TIMEOUT', 3600)
 
 
 class SeoNode(template.Node):
@@ -40,14 +37,16 @@ class SeoNode(template.Node):
         site = get_current_site(request)
         target_object = self.get_target_object(context)
         if target_object is None:
-            cache_key = 'SEO:%s' % make_key('%s.%s:%s' % (site.pk, request.path_info, self.intent))
+            cache_key = '%s:%s' % (CACHE_PREFIX, make_key('%s.%s:%s' % (
+                site.pk, request.path_info, self.intent)))
             value = cache.get(cache_key)
             if value is None:
                 seobj = Url.objects.get_seo_object(request.path_info, site)
                 value = getattr(seobj, self.intent, None)
                 cache.set(cache_key, value, CACHE_TIMEOUT)  # store in a cache
         else:
-            cache_key = 'SEO:%s' % make_key('%s.%s:%s' % (site.pk, target_object.pk, self.intent))
+            cache_key = '%s:%s' % (CACHE_PREFIX, make_key('%s.%s:%s' % (
+                site.pk, target_object.pk, self.intent)))
             value = cache.get(cache_key)
             if value is None:
                 seobj = Seo.objects.get_seo_object(target_object, site)
