@@ -8,7 +8,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name="django-easy-seo",
-    version='0.4.1',
+    version='0.4.2',
     packages=['seo'],
     include_package_data=True,
     license="GPLv3 License",
@@ -20,7 +20,6 @@ setup(
     maintainer_email='basil.shubin@gmail.com',
     install_requires=[
         'django-classy-tags',
-        'django-cache-machine',
     ],
     classifiers=[
         'Development Status :: 3 - Alpha',

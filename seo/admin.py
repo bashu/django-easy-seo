@@ -14,7 +14,7 @@ class SeoAdmin(admin.ModelAdmin):
     model = Seo
 
     def queryset(self, request):
-        return super(SeoAdmin, self).queryset(request).no_cache()
+        return super(SeoAdmin, self).queryset(request)
 
 try:
     admin.site.register(Seo, SeoAdmin)
@@ -29,7 +29,7 @@ class SeoInlines(generic.GenericStackedInline):
     max_num = 1
 
     def queryset(self, request):
-        return super(SeoInlines, self).queryset(request).no_cache()
+        return super(SeoInlines, self).queryset(request)
 
 for model_name in getattr(settings, 'SEO_FOR_MODELS', []):
     model = importpath(model_name, 'SEO_FOR_MODELS')

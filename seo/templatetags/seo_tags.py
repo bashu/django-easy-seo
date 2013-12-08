@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 
 from django import template
+from django.core.cache import cache
 from django.utils.html import escape
 
 from classytags.core import Tag, Options
 from classytags.arguments import Argument, ChoiceArgument
 
-from ..settings import INTENTS
-from ..models import Seo
+from ..settings import INTENTS, CACHE_PREFIX, CACHE_TIMEOUT
+from ..models import Seo, make_key
 
 register = template.Library()
 
@@ -23,12 +24,19 @@ class SeoTag(Tag):
     )
 
     def render_tag(self, context, intent, instance, varname):
-        seobj = Seo.objects.get_seo_object(instance)
+        cache_key = '%s:%s' % (CACHE_PREFIX, make_key(
+            instance, instance.pk, intent))
+
+        value = cache.get(cache_key)
+        if not value:
+            seobj = Seo.objects.get_seo_object(instance)
+            value = getattr(seobj, intent, None)
+            cache.set(cache_key, value, CACHE_TIMEOUT)  # store in a cache
 
         if varname:
-            context[varname] = getattr(seobj, intent, None)
+            context[varname] = value
             return ''
         else:
-            return escape(getattr(seobj, intent, None) or u'')
+            return escape(value or u'')
 
 register.tag(SeoTag)
