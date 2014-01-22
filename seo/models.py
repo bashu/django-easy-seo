@@ -90,8 +90,7 @@ class Seo(models.Model):
             cache.delete(cache_key)
 
     def delete(self, *args, **kwargs):
-        object_id = self.object_id
-        content_object = self.content_object
+        object_id, content_object = self.object_id, self.content_object
         super(Seo, self).delete(*args, **kwargs)
 
         for intent in INTENTS:
@@ -102,7 +101,7 @@ class Seo(models.Model):
 
 class URL(UniqueModel):
 
-    url = models.CharField(verbose_name=_('URL'),  max_length=200, default='/', unique=True,
+    url = models.CharField(verbose_name=_('URL'),  max_length=200, default='/',
         help_text=_("This should be an absolute path, excluding the domain name. Example: '/events/search/'."))
 
     site = models.ForeignKey(Site, blank=True, null=True)
@@ -125,3 +124,24 @@ class URL(UniqueModel):
 
     def __unicode__(self):
         return self.url
+
+    def save(self, *args, **kwargs):
+        super(URL, self).save(*args, **kwargs)
+
+        sites = [self.site] if self.site else Site.objects.filter(url__isnull=True)
+        for site in sites:
+            for intent in INTENTS:
+                cache_key = '%s:%s%s:%s' % (
+                    CACHE_PREFIX, site.domain, self.url, intent)
+                cache.delete(cache_key)
+
+    def delete(self, *args, **kwargs):
+        url, current_site = self.url, self.site
+        super(URL, self).delete(*args, **kwargs)
+
+        sites = [current_site] if current_site else Site.objects.filter(url_isnull=True)
+        for site in sites:
+            for intent in INTENTS:
+                cache_key = '%s:%s%s:%s' % (
+                    CACHE_PREFIX, site.domain, url, intent)
+                cache.delete(cache_key)
