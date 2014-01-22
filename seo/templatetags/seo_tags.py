@@ -3,7 +3,7 @@
 from django import template
 from django.core.cache import cache
 from django.utils.html import escape
-from django.db.models.base import ModelBase
+from django.db.models.base import Model
 from django.core.handlers.wsgi import WSGIRequest
 from django.contrib.sites.models import get_current_site
 
@@ -27,7 +27,7 @@ class SeoTag(Tag):
     )
 
     def render_tag(self, context, intent, instance, varname):
-        if isinstance(instance, ModelBase):
+        if isinstance(instance, Model):
             cache_key = '%s:%s' % (CACHE_PREFIX, make_key(
                 instance, instance.pk, intent))
 
