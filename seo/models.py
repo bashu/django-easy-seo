@@ -128,7 +128,7 @@ class URL(UniqueModel):
     def save(self, *args, **kwargs):
         super(URL, self).save(*args, **kwargs)
 
-        sites = [self.site] if self.site else Site.objects.filter(url__isnull=True)
+        sites = [self.site] if self.site else Site.objects.all()
         for site in sites:
             for intent in INTENTS:
                 cache_key = '%s:%s%s:%s' % (
@@ -139,7 +139,7 @@ class URL(UniqueModel):
         url, current_site = self.url, self.site
         super(URL, self).delete(*args, **kwargs)
 
-        sites = [current_site] if current_site else Site.objects.filter(url_isnull=True)
+        sites = [current_site] if current_site else Site.objects.all()
         for site in sites:
             for intent in INTENTS:
                 cache_key = '%s:%s%s:%s' % (
