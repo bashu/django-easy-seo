@@ -18,3 +18,19 @@ class SeoManager(models.Manager):
 
     def get_seo_object(self, instance):
         return self.for_model(instance)
+
+
+class URLManager(models.Manager):
+
+    def get_seo_object(self, url, site=None):
+        from .models import Seo
+
+        try:
+            urlobj = self.get(url=url, site=site)
+        except ObjectDoesNotExist:
+            try:
+                urlobj = self.get(url=url, site=None)
+            except ObjectDoesNotExist:
+                return None
+
+        return Seo.objects.for_model(urlobj)
