@@ -4,7 +4,6 @@ from django import template
 from django.core.cache import cache
 from django.utils.html import escape
 from django.db.models.base import Model
-from django.core.handlers.wsgi import WSGIRequest
 from django.contrib.sites.models import get_current_site
 
 from classytags.core import Tag, Options
@@ -27,7 +26,7 @@ class SeoTag(Tag):
     )
 
     def render_tag(self, context, intent, instance, varname):
-        if isinstance(instance, Model):
+        if isinstance(instance, Model):  # hey we got a model instance
             cache_key = '%s:%s' % (CACHE_PREFIX, make_key(
                 instance, instance.pk, intent))
 
@@ -37,19 +36,19 @@ class SeoTag(Tag):
                 value = getattr(seobj, intent, None)
                 cache.set(cache_key, value, CACHE_TIMEOUT)  # store in a cache
 
-        elif isinstance(instance, WSGIRequest):
-            request = instance
+        elif isinstance(instance, basestring):  # and here we have a path
+            request, path = context['request'], instance
             current_site = get_current_site(request)
             cache_key = '%s:%s%s:%s' % (
-                CACHE_PREFIX, current_site.domain, request.path, intent)
+                CACHE_PREFIX, current_site.domain, path, intent)
 
             value = cache.get(cache_key)
             if not value:
-                seobj = URL.objects.get_seo_object(request.path, current_site)
+                seobj = URL.objects.get_seo_object(path, current_site)
                 value = getattr(seobj, intent, None)
                 cache.set(cache_key, value, CACHE_TIMEOUT)  # store in a cache
 
-        elif isinstance(instance, basestring):
+        else:
             raise NotImplementedError
 
         if varname:
