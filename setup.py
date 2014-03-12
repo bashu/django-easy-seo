@@ -8,18 +8,17 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name="django-easy-seo",
-    version='0.4.3.3',
+    version='0.4.4',
     packages=['seo'],
     include_package_data=True,
     license="GPLv3 License",
     description = "Adds generic SEO fields for objects in your site or specific urls",
     long_description=README,
-    author="Alexander Ivanov",
-    author_email="alexander.ivanov@redsolution.ru",
-    maintainer='Basil Shubin',
-    maintainer_email='basil.shubin@gmail.com',
+    author='Basil Shubin',
+    author_email='basil.shubin@gmail.com',
     install_requires=[
         'django-classy-tags',
+        'django-cache-machine>=0.8',
     ],
     classifiers=[
         'Development Status :: 3 - Alpha',
