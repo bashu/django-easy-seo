@@ -7,7 +7,18 @@ from django.contrib.contenttypes import generic
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.contenttypes.models import ContentType
 
-from caching.base import CachingMixin
+try:
+    from caching.base import CachingMixin
+
+    @receiver(signals.post_save, sender=Seo)
+    def force_invalidation(sender, instance, **kwargs):
+        if instance is not None and instance.content_object is not None:
+            Seo.objects.invalidate(*[
+                Seo.objects.for_object(instance.content_object)])
+
+except ImportError:
+    class CachingMixin(object):
+        pass
 
 from .managers import SeoManager
 
@@ -34,13 +45,3 @@ class Seo(CachingMixin, models.Model):
 
     def __unicode__(self):
         return self.title
-
-    @staticmethod
-    @receiver(signals.post_save)
-    def force_invalidation(sender, instance, **kwargs):
-        if instance is not None and not isinstance(instance, Seo):
-            return
-
-        if instance is not None and instance.content_object is not None:
-            Seo.objects.invalidate(*[
-                Seo.objects.for_object(instance.content_object)])
