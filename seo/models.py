@@ -10,12 +10,6 @@ from django.contrib.contenttypes.models import ContentType
 try:
     from caching.base import CachingMixin
 
-    @receiver(signals.post_save, sender=Seo)
-    def force_invalidation(sender, instance, **kwargs):
-        if instance is not None and instance.content_object is not None:
-            Seo.objects.invalidate(*[
-                Seo.objects.for_object(instance.content_object)])
-
 except ImportError:
     class CachingMixin(object):
         pass
@@ -45,3 +39,9 @@ class Seo(CachingMixin, models.Model):
 
     def __unicode__(self):
         return self.title
+
+@receiver(signals.post_save, sender=Seo)
+def force_invalidation(sender, instance, **kwargs):
+    if instance is not None and instance.content_object is not None:
+        Seo.objects.invalidate(*[
+            Seo.objects.for_object(instance.content_object)])

@@ -12,6 +12,9 @@ except ImportError:
         def get_query_set(self):
             return CachingQuerySet(self.model, using=self._db)
 
+        def invalidate(self, *args, **kwargs):
+            pass
+
         def no_cache(self):
             return self
 
