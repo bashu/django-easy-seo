@@ -12,7 +12,7 @@ setup(
     packages=['seo'],
     include_package_data=True,
     license="GPLv3 License",
-    description = "Adds generic SEO fields for objects in your site or specific urls",
+    description = "Adds generic SEO fields for objects in your site",
     long_description=README,
     author='Basil Shubin',
     author_email='basil.shubin@gmail.com',
