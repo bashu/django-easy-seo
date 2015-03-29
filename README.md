@@ -42,14 +42,16 @@ Use :
 
     {% seo '<title|keywords|description>' for <object> %}
     
-Or :
+or :
 
     {% seo '<title|keywords|description>' for <object> as <variable> %}
     {{ <variable> }}
 
-### Example
+### Examples
 
-``settings.py`` :
+See the ``example`` directory. Below is a short summary of what was done:
+
+In ``settings.py`` :
 ```python
 INSTALLED_APPS = (
     ...
@@ -63,7 +65,7 @@ SEO_FOR_MODELS = [
 ]
 ```
 
-``templates/flatpages/default.html`` :
+In ``templates/flatpages/default.html`` :
 ```html
 {% load seo_tags %}
 <html>
