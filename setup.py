@@ -18,7 +18,6 @@ setup(
     author_email='basil.shubin@gmail.com',
     install_requires=[
         'django-classy-tags',
-        'django-cache-machine>=0.8',
     ],
     classifiers=[
         'Development Status :: 3 - Alpha',
