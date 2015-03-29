@@ -37,3 +37,45 @@ SEO_FOR_MODELS = [
 First of all, load the `seo_tags` in every template where you want to use it :
 
     {% load seo_tags %}
+
+Use :
+
+    {% seo '<title|keywords|description>' for <object> %}
+    
+Or :
+
+    {% seo '<title|keywords|description>' for <object> as <variable> %}
+    {{ <variable> }}
+
+### Example
+
+``settings.py`` :
+```python
+INSTALLED_APPS = (
+    ...
+    'django.contrib.flatpages',
+    ...
+    'seo',  # last in a list
+)
+
+SEO_FOR_MODELS = [
+    'django.contrib.flatpages.models.FlatPage',
+]
+```
+
+``templates/flatpages/default.html`` :
+```html
+{% load seo_tags %}
+<html>
+    <head>
+        <meta name="description" content="{% seo 'description' for flatpage %}" />
+        <meta name="keywords" content="{% seo 'keywords' for flatpage %}" />
+        <title>{% seo 'title' for flatpage %}</title>
+    </head>
+    <body>
+        {% seo 'title' for flatpage as title %}
+        <h1>{{ title }}</h1>
+        {{ flatpage.content }}
+    </body>
+</html>
+```
