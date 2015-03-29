@@ -28,7 +28,7 @@ There is only one mandatory configuration option you need to set in your ``setti
 ```python
 # Override / extend ModelAdmin classes for a given Models
 SEO_FOR_MODELS = [
-  '<app_name>.models.<ModelName>',
+    '<app_name>.models.<ModelName>',
 ]
 ```
 
