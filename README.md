@@ -47,7 +47,7 @@ or :
     {% seo '<title|keywords|description>' for <object> as <variable> %}
     {{ <variable> }}
 
-### Examples
+### Example
 
 Please see `example` application. This application is used to manually test the functionalities of this package. This also serves as a good example. Below is a short summary of what was done:
 
