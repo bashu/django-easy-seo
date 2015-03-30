@@ -47,37 +47,6 @@ or :
     {% seo '<title|keywords|description>' for <object> as <variable> %}
     {{ <variable> }}
 
-### Example
+Please see ``example`` application. This application is used to manually test the functionalities of this package. This also serves as a good example.
 
-Please see `example` application. This application is used to manually test the functionalities of this package. This also serves as a good example. Below is a short summary of what was done:
-
-In ``settings.py`` :
-```python
-INSTALLED_APPS = (
-    ...
-    'django.contrib.flatpages',
-    ...
-    'seo',  # last in a list
-)
-
-SEO_FOR_MODELS = [
-    'django.contrib.flatpages.models.FlatPage',
-]
-```
-
-In ``templates/flatpages/default.html`` :
-```html
-{% load seo_tags %}
-<html>
-    <head>
-        <meta name="description" content="{% seo 'description' for flatpage %}" />
-        <meta name="keywords" content="{% seo 'keywords' for flatpage %}" />
-        <title>{% seo 'title' for flatpage %}</title>
-    </head>
-    <body>
-        {% seo 'title' for flatpage as title %}
-        <h1>{{ title }}</h1>
-        {{ flatpage.content }}
-    </body>
-</html>
-```
+You need only Django 1.4 or above to run that. It might run on older versions but that is not tested.
