@@ -7,7 +7,7 @@ from django.db.models.base import Model
 from classytags.core import Tag, Options
 from classytags.arguments import Argument, ChoiceArgument
 
-from ..settings import INTENTS
+from ..variables import INTENTS
 from ..models import Seo
 
 register = template.Library()
