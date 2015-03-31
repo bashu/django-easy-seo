@@ -1,5 +1,5 @@
 """
-Django settings for app project.
+Django settings for example project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.7/topics/settings/
