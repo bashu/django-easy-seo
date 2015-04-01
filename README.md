@@ -1,7 +1,7 @@
 Django SEO
 ===
 
-Seo fields for objects of any model registered in admin.
+SEO fields for objects of any model registered in admin.
 
 [![Latest Version](https://pypip.in/version/django-easy-seo/badge.svg)](https://pypi.python.org/pypi/django-easy-seo/)
 [![Downloads](https://pypip.in/download/django-easy-seo/badge.svg)](https://pypi.python.org/pypi/django-easy-seo/)
