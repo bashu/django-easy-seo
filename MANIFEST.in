@@ -1,5 +1,3 @@
 include LICENSE
 include README.md
 recursive-include seo/locale *
-recursive-include seo/migrations *
-recursive-include seo/templatetags *
