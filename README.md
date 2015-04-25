@@ -11,7 +11,7 @@ SEO fields for objects of any model registered in admin.
 
 Either clone this repository into your project, or install with ```pip install django-easy-seo```
 
-You'll need to add ```seo``` as a **LAST** item to ```INSTALLED_APPS``` in your projects ``settings.py`` file :
+You'll need to add ```seo``` as a **LAST** item to ```INSTALLED_APPS``` in your project's ``settings.py`` file :
 
 ```python
 INSTALLED_APPS = (
