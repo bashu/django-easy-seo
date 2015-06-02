@@ -3,9 +3,9 @@ Django SEO
 
 SEO fields for objects of any model registered in admin.
 
-[![Latest Version](https://pypip.in/version/django-easy-seo/badge.svg)](https://pypi.python.org/pypi/django-easy-seo/)
-[![Downloads](https://pypip.in/download/django-easy-seo/badge.svg)](https://pypi.python.org/pypi/django-easy-seo/)
-[![License](https://pypip.in/license/django-easy-seo/badge.svg)](https://pypi.python.org/pypi/django-easy-seo/)
+[![Latest Version](https://img.shields.io/pypi/v/django-easy-seo.svg)](https://pypi.python.org/pypi/django-easy-seo/)
+[![Downloads](https://img.shields.io/pypi/dm/django-easy-seo.svg)](https://pypi.python.org/pypi/django-easy-seo/)
+[![License](https://img.shields.io/github/license/bashu/django-easy-seo.svg)](https://pypi.python.org/pypi/django-easy-seo/)
 
 ## Setup
 
