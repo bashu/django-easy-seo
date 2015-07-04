@@ -35,18 +35,18 @@ SEO_FOR_MODELS = [
 ## Usage
 
 First of all, load the `seo_tags` in every template where you want to use it :
-
-    {% load seo_tags %}
-
+```html+django
+{% load seo_tags %}
+```
 Use :
-
-    {% seo '<title|keywords|description>' for <object> %}
-    
+```html+django
+{% seo '<title|keywords|description>' for <object> %}
+```    
 or :
-
-    {% seo '<title|keywords|description>' for <object> as <variable> %}
-    {{ <variable> }}
-
+```html+django
+{% seo '<title|keywords|description>' for <object> as <variable> %}
+{{ <variable> }}
+```
 Please see ``example`` application. This application is used to manually test the functionalities of this package. This also serves as a good example.
 
 You need only Django 1.4 or above to run that. It might run on older versions but that is not tested.
