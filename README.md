@@ -45,7 +45,7 @@ Use :
 or :
 ```html+django
 {% seo '<title|keywords|description>' for <object> as <variable> %}
-{{ <variable> }}
+{{ variable }}
 ```
 Please see ``example`` application. This application is used to manually test the functionalities of this package. This also serves as a good example.
 
