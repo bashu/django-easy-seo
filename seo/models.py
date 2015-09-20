@@ -6,6 +6,7 @@ from django.db.models import signals
 from django.contrib.contenttypes import generic
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.contenttypes.models import ContentType
+from django.utils.encoding import python_2_unicode_compatible
 
 try:
     from caching.base import CachingMixin
@@ -17,6 +18,7 @@ except ImportError:
 from .managers import SeoManager
 
 
+@python_2_unicode_compatible
 class Seo(CachingMixin, models.Model):
 
     title = models.CharField(
@@ -37,8 +39,9 @@ class Seo(CachingMixin, models.Model):
         verbose_name_plural = _('SEO fields')
         unique_together = ("content_type", "object_id")
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
+
 
 @receiver(signals.post_save, sender=Seo)
 def force_invalidation(sender, instance, **kwargs):
