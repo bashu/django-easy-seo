@@ -11,7 +11,7 @@ from .importpath import importpath
 
 
 class SeoAdmin(admin.ModelAdmin):
-    model = Seo
+    list_display = ['__str__', 'content_object']
 
     def queryset(self, request):
         return super(SeoAdmin, self).queryset(request).no_cache()
