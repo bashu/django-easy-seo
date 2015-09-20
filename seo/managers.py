@@ -34,6 +34,3 @@ class SeoManager(CachingManager):
             return self.filter(content_type=ct).get(object_id=instance.id)
         except ObjectDoesNotExist:
             return None
-
-    def get_seo_object(self, instance):
-        return self.for_object(instance)
