@@ -12,8 +12,8 @@ SEO fields for objects of any model registered in admin.
 .. image:: https://img.shields.io/github/license/bashu/django-easy-seo.svg
     :target: https://pypi.python.org/pypi/django-easy-seo/
 
-.. image:: https://landscape.io/github/bashu/django-easy-seo/develop/landscape.svg?style=flat
-    :target: https://landscape.io/github/bashu/django-easy-seo/develop
+.. .. image:: https://landscape.io/github/bashu/django-easy-seo/develop/landscape.svg?style=flat
+..    :target: https://landscape.io/github/bashu/django-easy-seo/develop
 
 Setup
 -----
