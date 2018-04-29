@@ -1,19 +1,20 @@
-Django SEO
-==========
+django-easy-seo
+===============
 
 SEO fields for objects of any model registered in admin.
 
 .. image:: https://img.shields.io/pypi/v/django-easy-seo.svg
-    :target: https://pypi.python.org/pypi/django-easy-seo/
-
-.. image:: https://img.shields.io/pypi/dm/django-easy-seo.svg
-    :target: https://pypi.python.org/pypi/django-easy-seo/
+   :target: https://pypi.python.org/pypi/django-easy-seo/
 
 .. image:: https://img.shields.io/github/license/bashu/django-easy-seo.svg
-    :target: https://pypi.python.org/pypi/django-easy-seo/
+   :target: https://pypi.python.org/pypi/django-easy-seo/
 
-.. .. image:: https://landscape.io/github/bashu/django-easy-seo/develop/landscape.svg?style=flat
-..    :target: https://landscape.io/github/bashu/django-easy-seo/develop
+
+.. raw:: html
+
+   <p align="center">
+     <img src="https://raw.githubusercontent.com/bashu/django-easy-seo/develop/logo/sizes%20500x300/color.png" alt="django-easy-seo">
+   </p>
 
 Setup
 -----
