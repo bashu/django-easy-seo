@@ -57,13 +57,13 @@ Use :
 
 .. code-block:: html+django
 
-    {% seo '<title|keywords|description>' for <object> %}
+    {% seo '<title|keywords|description>' for object %}
   
 or :
 
 .. code-block:: html+django
 
-    {% seo '<title|keywords|description>' for <object> as <variable> %}
+    {% seo '<title|keywords|description>' for object as variable %}
     {{ variable }}
 
 Please see ``example`` application. This application is used to manually test the functionalities of this package. This also serves as a good example.
