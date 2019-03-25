@@ -1,16 +1,25 @@
-Django SEO
-==========
+django-easy-seo
+===============
 
 SEO fields for objects of any model registered in admin.
 
+Maintained by `Basil Shubin <https://github.com/bashu>`_,  and some great
+`contributors <https://github.com/bashu/django-easy-seo/contributors>`_.
+
 .. image:: https://img.shields.io/pypi/v/django-easy-seo.svg
-    :target: https://pypi.python.org/pypi/django-easy-seo/
+   :target: https://pypi.python.org/pypi/django-easy-seo/
 
 .. image:: https://img.shields.io/pypi/dm/django-easy-seo.svg
     :target: https://pypi.python.org/pypi/django-easy-seo/
 
 .. image:: https://img.shields.io/github/license/bashu/django-easy-seo.svg
-    :target: https://pypi.python.org/pypi/django-easy-seo/
+   :target: https://pypi.python.org/pypi/django-easy-seo/
+
+.. raw:: html
+
+   <p align="center">
+     <img src="https://raw.githubusercontent.com/bashu/django-easy-seo/develop/logo/sizes%20500x300/color.png" alt="django-easy-seo">
+   </p>
 
 Setup
 -----
@@ -53,13 +62,13 @@ Use :
 
 .. code-block:: html+django
 
-    {% seo '<title|keywords|description>' for <object> %}
+    {% seo '<title|keywords|description>' for object %}
   
 or :
 
 .. code-block:: html+django
 
-    {% seo '<title|keywords|description>' for <object> as <variable> %}
+    {% seo '<title|keywords|description>' for object as variable %}
     {{ variable }}
 
 Please see ``example`` application. This application is used to manually test the functionalities of this package. This also serves as a good example.
