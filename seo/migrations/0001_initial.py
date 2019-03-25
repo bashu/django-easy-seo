@@ -20,13 +20,13 @@ class Migration(migrations.Migration):
                 ('description', models.CharField(default=b'', max_length=200, verbose_name='description', blank=True)),
                 ('keywords', models.CharField(default=b'', max_length=1000, verbose_name='keywords', blank=True)),
                 ('object_id', models.PositiveIntegerField()),
-                ('content_type', models.ForeignKey(to='contenttypes.ContentType')),
+                ('content_type', models.ForeignKey(to='contenttypes.ContentType', on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name': 'SEO fields',
                 'verbose_name_plural': 'SEO fields',
             },
-            bases=(seo.models.CachingMixin, models.Model),
+            bases=(models.Model,),
         ),
         migrations.AlterUniqueTogether(
             name='seo',

@@ -2,7 +2,7 @@
 
 from django.conf import settings
 from django.contrib import admin
-from django.contrib.contenttypes import generic
+from django.contrib.contenttypes.admin import GenericStackedInline
 from django.core.exceptions import ImproperlyConfigured
 
 from .models import Seo
@@ -22,7 +22,7 @@ except admin.sites.AlreadyRegistered:
     pass
 
 
-class SeoInlines(generic.GenericStackedInline):
+class SeoInlines(GenericStackedInline):
     model = Seo
     form = SeoForm
     extra = 1

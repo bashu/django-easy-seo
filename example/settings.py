@@ -25,12 +25,8 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
-TEMPLATE_DIRS = (
-    os.path.join(os.path.dirname(__file__), 'templates'),
-)
 
 # Application definition
-
 
 PROJECT_APPS = [
     'seo',
@@ -47,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.flatpages',
 ] + PROJECT_APPS
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -58,7 +54,26 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'example.urls'
 
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'APP_DIRS': True,
+        'DIRS': [
+            os.path.join(os.path.dirname(__file__), 'templates'),
+        ],
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
 SITE_ID = 1
+
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
@@ -83,12 +98,14 @@ USE_L10N = True
 
 USE_TZ = True
 
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
 
-# SEO settings
+
+## SEO settings
 
 SEO_FOR_MODELS = [
     'django.contrib.flatpages.models.FlatPage',

@@ -3,12 +3,17 @@ django-easy-seo
 
 SEO fields for objects of any model registered in admin.
 
+Maintained by `Basil Shubin <https://github.com/bashu>`_,  and some great
+`contributors <https://github.com/bashu/django-easy-seo/contributors>`_.
+
 .. image:: https://img.shields.io/pypi/v/django-easy-seo.svg
    :target: https://pypi.python.org/pypi/django-easy-seo/
 
+.. image:: https://img.shields.io/pypi/dm/django-easy-seo.svg
+    :target: https://pypi.python.org/pypi/django-easy-seo/
+
 .. image:: https://img.shields.io/github/license/bashu/django-easy-seo.svg
    :target: https://pypi.python.org/pypi/django-easy-seo/
-
 
 .. raw:: html
 
